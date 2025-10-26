@@ -1186,9 +1186,16 @@
             const savedTheme = localStorage.getItem('theme');
             const themeIcon = document.getElementById('themeIcon');
             
-            if (savedTheme === 'dark') {
+            // Default to dark theme if no saved preference
+            if (!savedTheme || savedTheme === 'dark') {
                 document.documentElement.setAttribute('data-theme', 'dark');
                 themeIcon.className = 'fas fa-sun';
+                if (!savedTheme) {
+                    localStorage.setItem('theme', 'dark');
+                }
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                themeIcon.className = 'fas fa-moon';
             }
         });
 
